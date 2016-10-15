@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
-
-import {View, Text, StyleSheet} from 'react-native';
+var api = require('../utils/api');
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableHighlight,
+  ActivityIndicatorIOS
+ } from 'react-native';
 
 var styles = StyleSheet.create({
   mainContainer: {
@@ -46,10 +53,64 @@ var styles = StyleSheet.create({
     },
 });
 class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      isLoading: false,
+      error: false
+    };
+
+  }
+  handleChange(event) {
+    this.setState({
+      username: event.nativeEvent.text
+    });
+  }
+  handleSubmit() {
+    //update indicator spinner
+    this.setState({
+      isLoading: true
+    });
+    //fetch user from git
+    api.getBio(this.state.username)
+      .then((res) => {
+        //check if user is on github
+        if(res.message === 'Not Found') {
+            //if not inform state that an issue has arisen
+            this.setState({
+              error: 'User not Found',
+              isLoading: false
+            })
+        } else {
+          //change routes push to next screen 
+          this.props.navigator.push({
+            title: res.name || 'Select an Option',
+            component: Dashboard,
+            passProps: {userinfo: res}
+          });
+          this.setState({
+            isLoading: false,
+            error: false,
+            username: ''
+          })
+        }
+      })
+  }
   render() {
     return(
       <View style={styles.mainContainer}>
-        <Text>Testing the router</Text>
+        <Text style={styles.title}>Search for a Github User</Text>
+        <TextInput
+          style={styles.searchInput}
+          value={this.state.username}
+          onChange={this.handleChange.bind(this)}/>
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.handleSubmit.bind(this)}
+          underlaycolor="white">
+          <Text style={styles.buttonText}>SEARCH</Text>
+        </TouchableHighlight>
       </View>
     )
   }
