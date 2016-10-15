@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+var Dashboard = require('./Dashboard');
 var api = require('../utils/api');
 import {
   View,
@@ -6,7 +7,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableHighlight,
-  ActivityIndicatorIOS
+  ActivityIndicator
  } from 'react-native';
 
 var styles = StyleSheet.create({
@@ -83,11 +84,11 @@ class Main extends Component {
               isLoading: false
             })
         } else {
-          //change routes push to next screen 
+          //change routes push to next screen
           this.props.navigator.push({
             title: res.name || 'Select an Option',
             component: Dashboard,
-            passProps: {userinfo: res}
+            passProps: {userInfo: res}
           });
           this.setState({
             isLoading: false,
@@ -98,6 +99,10 @@ class Main extends Component {
       })
   }
   render() {
+    //check if an error occured
+    var showErr = (
+      this.state.error ? <Text>{this.state.error}</Text> : <View></View>
+    );
     return(
       <View style={styles.mainContainer}>
         <Text style={styles.title}>Search for a Github User</Text>
@@ -111,6 +116,13 @@ class Main extends Component {
           underlaycolor="white">
           <Text style={styles.buttonText}>SEARCH</Text>
         </TouchableHighlight>
+        {/*show propgress while isLoading is true*/}
+        <ActivityIndicator
+          animating =  {this.state.isLoading}
+          color = '#111'
+          size = "large">
+        </ActivityIndicator>
+        {showErr}
       </View>
     )
   }
