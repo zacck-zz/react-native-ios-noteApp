@@ -10,6 +10,8 @@ import {
   ScrollView
 } from 'react-native';
 
+var Web_View = require('./Helpers/Web_View');
+
 var styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -37,7 +39,11 @@ var styles = StyleSheet.create({
 
 class Repositories extends Component {
   openPage(url){
-    console.log('the url is ', url);
+    this.props.navigator.push({
+      component: Web_View,
+      title: 'Web View',
+      passProps: {url}
+    });
   }
   render() {
     var repos = this.props.repos;
@@ -54,7 +60,6 @@ class Repositories extends Component {
                         <Text style={styles.stars}> Stars: {repos[index].stargazers_count} </Text>
                         {desc}
                     </View>
-                    <Separator />
                 </View>
       )
     });
