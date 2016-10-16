@@ -46,8 +46,10 @@ class Profile extends Component {
                 <View style={styles.rowContainer}>
                   <Text style={styles.rowTitle}>{this.getRowTitle(userInfo,item )}</Text>
                   <Text style={styles.rowContent}>{userInfo[item]}</Text>
+                  <Separator/>
                 </View>
               </View>
+
       )
       }
     });
