@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 var Profile = require('./Profile');
+var api = require('../utils/api');
+var Repositories = require('./Repositories');
 import {
   Text,
   View,
@@ -42,6 +44,7 @@ class Dashboard extends Component {
     return obj;
   }
   goToProfile() {
+    /*Navigate to Profile page pass in userInfo*/
     this.props.navigator.push({
       component: Profile,
       title: 'Profile Page',
@@ -49,7 +52,20 @@ class Dashboard extends Component {
     })
   }
   goToRepos() {
-    console.log('going to notes');
+    /*fetch the Repositories
+    *Pass in userInfo.login to get the repos
+    */
+    api.getRepos(this.props.userInfo.login)
+      .then((res) => {/*If successful with response go to repos component*/
+        this.props.navigator.push({/*After data is in lets navigate to route*/
+          component: Repositories,
+          title: 'Repos',
+          passProps:{
+            userInfo: this.props.userInfo,
+            repos: res
+          }
+        });
+      });
   }
   goToNotes() {
     console.log('going to noted');
