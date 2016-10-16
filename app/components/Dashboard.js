@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 var Profile = require('./Profile');
 var api = require('../utils/api');
 var Repositories = require('./Repositories');
+var Notes = require('./Notes');
 import {
   Text,
   View,
@@ -68,7 +69,20 @@ class Dashboard extends Component {
       });
   }
   goToNotes() {
-    console.log('going to noted');
+    api.getNotes(this.props.userInfo.login)
+    .then((res) => {
+      res = res || {};
+      this.props.navigator.push({
+        component: Notes,
+        title: 'Notes',
+        passProps: {
+          notes: res,
+          userInfo: this.props.userInfo
+        }
+
+      })
+    })
+
   }
   render() {
     return(
