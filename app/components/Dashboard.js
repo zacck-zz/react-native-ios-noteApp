@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+var Profile = require('./Profile');
 import {
   Text,
   View,
@@ -41,7 +42,11 @@ class Dashboard extends Component {
     return obj;
   }
   goToProfile() {
-    console.log('going to profile');
+    this.props.navigator.push({
+      component: Profile,
+      title: 'Profile Page',
+      passProps: {userInfo: this.props.userInfo}
+    })
   }
   goToRepos() {
     console.log('going to notes');
