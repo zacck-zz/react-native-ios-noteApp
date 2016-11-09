@@ -99,32 +99,61 @@ class Main extends Component {
       })
   }
   render() {
-    //check if an error occured
-    var showErr = (
-      this.state.error ? <Text>{this.state.error}</Text> : <View></View>
-    );
     return(
-      <View style={styles.mainContainer}>
-        <Text style={styles.title}>Search for a Github User</Text>
-        <TextInput
-          style={styles.searchInput}
-          value={this.state.username}
-          onChange={this.handleChange.bind(this)}/>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.handleSubmit.bind(this)}
-          underlaycolor="white">
-          <Text style={styles.buttonText}>SEARCH</Text>
-        </TouchableHighlight>
-        {/*show propgress while isLoading is true*/}
-        <ActivityIndicator
-          animating =  {this.state.isLoading}
-          color = '#111'
-          size = "large">
-        </ActivityIndicator>
-        {showErr}
+      <View style={{marginTop: 65}}>
+      <View style={{flex: 9, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'stretch'}}>
+        <View style={{width: 50, height:50, backgroundColor: 'powderblue'}}>
+
+        </View>
+        <View style={{width: 50, backgroundColor: 'skyblue'}}>
+
+        </View>
+        <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}}>
+
+        </View>
       </View>
-    )
+      <View style={{flex: 1, flexDirection: 'column', alignItems: 'flex-end'}}>
+        <View style={{width: 50, height:50, backgroundColor: 'powderblue'}}>
+
+        </View>
+        <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}}>
+
+        </View>
+        <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}}>
+
+        </View>
+      </View>
+    </View>
+
+    );
+
+
+    //check if an error occured
+    // var showErr = (
+    //   this.state.error ? <Text>{this.state.error}</Text> : <View></View>
+    // );
+    // return(
+    //   <View style={styles.mainContainer}>
+    //     <Text style={styles.title}>Search for a Github User</Text>
+    //     <TextInput
+    //       style={styles.searchInput}
+    //       value={this.state.username}
+    //       onChange={this.handleChange.bind(this)}/>
+    //     <TouchableHighlight
+    //       style={styles.button}
+    //       onPress={this.handleSubmit.bind(this)}
+    //       underlaycolor="white">
+    //       <Text style={styles.buttonText}>SEARCH</Text>
+    //     </TouchableHighlight>
+    //     {/*show propgress while isLoading is true*/}
+    //     <ActivityIndicator
+    //       animating =  {this.state.isLoading}
+    //       color = '#111'
+    //       size = "large">
+    //     </ActivityIndicator>
+    //     {showErr}
+    //   </View>
+    // )
   }
 };
 
